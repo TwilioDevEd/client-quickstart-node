@@ -1,18 +1,10 @@
-/*
-Load Twilio configuration from .env config file - the following environment
-variables should be set:
-process.env.TWILIO_ACCOUNT_SID
-process.env.TWILIO_AUTH_TOKEN
-process.env.TWILIO_TWIML_APP_SID
-process.env.TWILIO_CALLER_ID
-*/
-require('dotenv').load();
 var http = require('http');
 var path = require('path');
 var twilio = require('twilio');
 var express = require('express');
 var bodyParser = require('body-parser');
 var randomUsername = require('./randos');
+var config = require('./config');
 
 // Create Express webapp
 var app = express();
@@ -26,9 +18,9 @@ username for the client requesting a token.
 app.get('/token', function(request, response) {
   var identity = randomUsername();
   
-  var capability = new twilio.Capability(process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN);
-  capability.allowClientOutgoing(process.env.TWILIO_TWIML_APP_SID);
+  var capability = new twilio.Capability(config.TWILIO_ACCOUNT_SID,
+    config.TWILIO_AUTH_TOKEN);
+  capability.allowClientOutgoing(config.TWILIO_TWIML_APP_SID);
   capability.allowClientIncoming(identity);
   var token = capability.generate();
 
@@ -44,7 +36,7 @@ app.post('/voice', function (req, res) {
   var twiml = new twilio.TwimlResponse();
   
   if(req.body.To) {
-    twiml.dial({ callerId: process.env.TWILIO_CALLER_ID}, function() {
+    twiml.dial({ callerId: config.TWILIO_CALLER_ID}, function() {
       // wrap the phone number or client name in the appropriate TwiML verb
       // by checking if the number given has only digits and format symbols
       if (/^[\d\+\-\(\) ]+$/.test(req.body.To)) {

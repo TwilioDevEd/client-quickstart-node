@@ -16,10 +16,10 @@ Twilio Phone # | A Twilio phone number in [E.164 format](https://en.wikipedia.or
 Create a configuration file for your application:
 
 ```bash
-cp .env.example .env
+cp config.sample.js config.js
 ```
 
-Edit `.env` with the four configuration parameters we gathered from above.
+Edit `config.js` with the four configuration parameters we gathered from above.
 
 Next, we need to install our dependencies from npm:
 
