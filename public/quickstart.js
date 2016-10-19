@@ -54,6 +54,11 @@
       setClientNameUI(data.identity);
 
       Twilio.Device.audio.on('deviceChange', updateAllDevices);
+
+      // Show audio selection UI if it is supported by the browser.
+      if (Twilio.Device.audio.isSelectionSupported) {
+        document.getElementById('output-selection').style.display = 'block';
+      }
     })
     .fail(function () {
       log('Could not get a token from server!');

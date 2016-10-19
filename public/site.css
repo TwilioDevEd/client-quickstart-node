@@ -34,6 +34,9 @@ div#controls {
       margin: 0 1.5em;
       text-align: center;
     }
+      div#controls div#info div#output-selection {
+        display: none;
+      }
 
       div#controls div#info a {
         font-size: 1.1em;
