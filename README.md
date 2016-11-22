@@ -47,7 +47,7 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
 7. When ngrok starts up, it will assign a unique URL to your tunnel.
 It might be something like `https://asdf456.ngrok.io`. Take note of this.
 
-8. [Configure your TwiML app](https://www.twilio.com//console/phone-numbers/dev-tools/twiml-apps)'s
+8. [Configure your TwiML app](https://www.twilio.com/console/phone-numbers/dev-tools/twiml-apps)'s
 Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
 
     ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
