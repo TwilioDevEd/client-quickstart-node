@@ -27,10 +27,10 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
     npm install
     ```
 
-4. Now we should be all set! Run the application using the `node` command.
+4. Now we should be all set! Run the application using `npm`.
 
     ```bash
-    node .
+    npm start
     ```
     
     Your application should now be running at http://localhost:3000.
