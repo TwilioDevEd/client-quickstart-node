@@ -32,10 +32,10 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
     ```bash
     npm start
     ```
-    
+
     Your application should now be running at http://localhost:3000.
     Leave the server running and continue on in another command window.
-    
+
 5. [Download and install ngrok](https://ngrok.com/download)
 
 6. Run ngrok:
@@ -55,7 +55,7 @@ Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
 You should now be ready to rock! Make some phone calls.
 Open it on another device and call yourself. Note that Twilio Client requires
 WebRTC enabled browsers, so Edge and Internet Explorer will not work for testing.
-We'd recommend Google Chrome or Mozilla Firefox instead. 
+We'd recommend Google Chrome or Mozilla Firefox instead.
 
 ![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
 

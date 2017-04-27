@@ -1,6 +1,7 @@
 var http = require('http');
 var path = require('path');
-var twilio = require('twilio');
+var ClientCapability = require('twilio').jwt.ClientCapability;
+var VoiceResponse = require('twilio').twiml.VoiceResponse;
 var express = require('express');
 var bodyParser = require('body-parser');
 var randomUsername = require('./randos');
@@ -17,24 +18,28 @@ username for the client requesting a token.
 */
 app.get('/token', function(request, response) {
   var identity = randomUsername();
-  
-  var capability = new twilio.Capability(config.TWILIO_ACCOUNT_SID,
-    config.TWILIO_AUTH_TOKEN);
-  capability.allowClientOutgoing(config.TWILIO_TWIML_APP_SID);
-  capability.allowClientIncoming(identity);
-  var token = capability.generate();
+  var capability = new ClientCapability({
+    accountSid: config.TWILIO_ACCOUNT_SID,
+    authToken: config.TWILIO_AUTH_TOKEN
+  });
+
+  capability.addScope(new ClientCapability.IncomingClientScope(identity));
+  capability.addScope(new ClientCapability.OutgoingClientScope({
+    applicationSid: config.TWILIO_TWIML_APP_SID,
+    clientName: identity
+  }));
 
   // Include identity and token in a JSON response
   response.send({
     identity: identity,
-    token: token
+    token: capability.toJwt()
   });
 });
 
 app.post('/voice', function (req, res) {
   // Create TwiML response
-  var twiml = new twilio.TwimlResponse();
-  
+  var twiml = new VoiceResponse();
+
   if(req.body.To) {
     twiml.dial({ callerId: config.TWILIO_CALLER_ID}, function() {
       // wrap the phone number or client name in the appropriate TwiML verb
