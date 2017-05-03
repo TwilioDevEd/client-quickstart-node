@@ -1,4 +1,10 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Twilio Client Quickstart for Node.js
+[![Build Status](https://travis-ci.org/TwilioDevEd/client-quickstart-node.svg?branch=master)](https://travis-ci.org/TwilioDevEd/client-quickstart-node)
+
 
 This application should give you a ready-made starting point for writing your
 own voice apps with Twilio Client. Before we begin, we need to collect
@@ -15,50 +21,60 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
 
 1. Create a configuration file for your application:
 
-    ```bash
-    cp config.sample.js config.js
-    ```
+   ```bash
+   cp .env.example .env
+   ```
 
-2. Edit `config.js` with the four configuration parameters we gathered from above.
+1. Edit `config.js` with the four configuration parameters we gathered from above.
 
-3. Next, we need to install our dependencies from npm:
+1. Next, we need to install our dependencies from npm:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
-4. Now we should be all set! Run the application using `npm`.
+1. Now we should be all set! Run the application using `npm`.
 
-    ```bash
-    npm start
-    ```
-    
-    Your application should now be running at http://localhost:3000.
-    Leave the server running and continue on in another command window.
-    
-5. [Download and install ngrok](https://ngrok.com/download)
+   ```bash
+   npm start
+   ```
 
-6. Run ngrok:
+   Your application should now be running at http://localhost:3000.
+   Leave the server running and continue on in another command window.
 
-    ```bash
-    ngrok http 3000
-    ```
+1. [Download and install ngrok](https://ngrok.com/download)
 
-7. When ngrok starts up, it will assign a unique URL to your tunnel.
-It might be something like `https://asdf456.ngrok.io`. Take note of this. Note you **must** use the https URL, otherwise some browsers will block microphone access.
+1. Run ngrok:
 
-8. [Configure your TwiML app](https://www.twilio.com/console/phone-numbers/dev-tools/twiml-apps)'s
+   ```bash
+   ngrok http 3000
+   ```
+
+1. When ngrok starts up, it will assign a unique URL to your tunnel.
+   It might be something like `https://asdf456.ngrok.io`. Take note of this.
+   Note you **must** use the https URL, otherwise some browsers will block
+   microphone access.
+
+1. [Configure your TwiML app](https://www.twilio.com/console/phone-numbers/dev-tools/twiml-apps)'s
 Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
 
-    ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
+   ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
 
-You should now be ready to rock! Make some phone calls.
-Open it on another device and call yourself. Note that Twilio Client requires
-WebRTC enabled browsers, so Edge and Internet Explorer will not work for testing.
-We'd recommend Google Chrome or Mozilla Firefox instead. 
+   You should now be ready to rock! Make some phone calls.
+   Open it on another device and call yourself. Note that Twilio Client requires
+   WebRTC enabled browsers, so Edge and Internet Explorer will not work for
+   testing. We'd recommend Google Chrome or Mozilla Firefox instead.
 
-![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
+   ![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
 
-## License
+### Run tests
 
-MIT
+```bash
+npm test
+```
+
+## Meta
+
+* No warranty expressed or implied. Software is as is. Diggity.
+* [MIT License](http://www.opensource.org/licenses/mit-license.html)
+* Lovingly crafted by Twilio Developer Education.
