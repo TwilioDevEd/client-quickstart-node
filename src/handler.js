@@ -33,10 +33,10 @@ exports.voiceResponse = function voiceResponse(toNumber) {
     // if is a valid phone number
     const attr = isAValidPhoneNumber(toNumber) ? 'number' : 'client';
 
-    twiml.dial({
-      [attr]: toNumber,
+    const dial = twiml.dial({
       callerId: config.callerId,
     });
+    dial[attr]({}, toNumber);
   } else {
     twiml.say('Thanks for calling!');
   }
