@@ -35,10 +35,11 @@ describe('#voiceResponse', () => {
       const count = countWord(twiml);
 
       // TwiML Verbs
-      expect(count('Dial')).toBe(1);
+      expect(count('Dial')).toBe(2);
+      expect(count('Client')).toBe(2);
 
       // TwiML options
-      expect(twiml).toContain(`client="${toNumber}"`);
+      expect(twiml).toContain(toNumber);
     });
   });
 
@@ -49,10 +50,11 @@ describe('#voiceResponse', () => {
       const count = countWord(twiml);
 
       // TwiML Verbs
-      expect(count('Dial')).toBe(1);
+      expect(count('Dial')).toBe(2);
+      expect(count('Number')).toBe(2);
 
       // TwiML options
-      expect(twiml).toContain(`number="${toNumber}"`);
+      expect(twiml).toContain(toNumber);
     });
   });
 });
