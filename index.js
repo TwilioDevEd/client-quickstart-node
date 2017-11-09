@@ -19,7 +19,7 @@ app.all('/*', function(req, res, next) {
     res.header("Access-Control-Max-Age", "86400"); // 24 hours
 
     // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
+    if ('OPTIONS' === req.method) {
         res.send(200);
     }
     else {

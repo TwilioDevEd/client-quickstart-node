@@ -4,8 +4,9 @@ const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const nameGenerator = require('../name_generator');
 const config = require('../config');
 
+const identity = nameGenerator();
+
 exports.tokenGenerator = function tokenGenerator() {
-  const identity = nameGenerator();
   const capability = new ClientCapability({
     accountSid: config.accountSid,
     authToken: config.authToken,
@@ -42,6 +43,15 @@ exports.voiceResponse = function voiceResponse(toNumber) {
   }
 
   return twiml.toString();
+};
+
+exports.voiceIncoming = function voiceResponse() {
+    // Create a TwiML voice response
+    const response = new VoiceResponse();
+    const dial = response.dial();
+    dial.client(identity);
+    console.log(response.toString())
+    return response.toString();
 };
 
 /**
