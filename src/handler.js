@@ -28,7 +28,7 @@ exports.voiceResponse = function voiceResponse(toNumber) {
   // Create a TwiML voice response
   const twiml = new VoiceResponse();
 
-  if(toNumber) {
+  if (toNumber) {
     // Wrap the phone number or client name in the appropriate TwiML verb
     // if is a valid phone number
     const attr = isAValidPhoneNumber(toNumber) ? 'number' : 'client';
