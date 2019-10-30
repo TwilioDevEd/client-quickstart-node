@@ -25,7 +25,7 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
    cp .env.example .env
    ```
 
-1. Edit `config.js` with the four configuration parameters we gathered from above.
+1. Edit `.env` with the four configuration parameters we gathered from above.
 
 1. Next, we need to install our dependencies from npm:
 
