@@ -52,8 +52,8 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
 
 1. When ngrok starts up, it will assign a unique URL to your tunnel.
    It might be something like `https://asdf456.ngrok.io`. Take note of this.
-   Note you **must** use the https URL, otherwise some browsers will block
-   microphone access.
+
+> [Learn 6 awesome reasons why to use ngrok](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html).
 
 1. [Configure your TwiML app](https://www.twilio.com/console/voice/twiml/apps)'s
 Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
@@ -64,6 +64,9 @@ Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
    Open it on another device and call yourself. Note that Twilio Client requires
    WebRTC enabled browsers, so Edge and Internet Explorer will not work for
    testing. We'd recommend Google Chrome or Mozilla Firefox instead.
+
+> **Note:** You **must** use the https URL, otherwise some browsers will block
+   microphone access.
 
    ![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
 
