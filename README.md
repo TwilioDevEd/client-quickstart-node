@@ -55,7 +55,7 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
    Note you **must** use the https URL, otherwise some browsers will block
    microphone access.
 
-1. [Configure your TwiML app](https://www.twilio.com/console/phone-numbers/dev-tools/twiml-apps)'s
+1. [Configure your TwiML app](https://www.twilio.com/console/voice/twiml/apps)'s
 Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
 
    ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
