@@ -5,6 +5,7 @@
 # Twilio Client Quickstart for Node.js
 [![Build Status](https://travis-ci.org/TwilioDevEd/client-quickstart-node.svg?branch=master)](https://travis-ci.org/TwilioDevEd/client-quickstart-node)
 
+> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
 This application should give you a ready-made starting point for writing your
 own voice apps with Twilio Client. Before we begin, we need to collect
