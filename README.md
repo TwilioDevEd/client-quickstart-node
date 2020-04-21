@@ -3,7 +3,7 @@
 </a>
 
 # Twilio Client Quickstart for Node.js
-[![Build Status](https://travis-ci.org/TwilioDevEd/client-quickstart-node.svg?branch=master)](https://travis-ci.org/TwilioDevEd/client-quickstart-node)
+![](https://github.com/TwilioDevEd/client-quickstart-node/workflows/Node.js/badge.svg)
 
 > We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
@@ -11,12 +11,12 @@ This application should give you a ready-made starting point for writing your
 own voice apps with Twilio Client. Before we begin, we need to collect
 all the config values we need to run the application:
 
-| Config&nbsp;Value  | Description |
+| Config Value  | Description |
 | :-------------  |:------------- |
-Account&nbsp;SID | Your primary Twilio account identifier - find this [in the console here](https://www.twilio.com/console).
-Auth&nbsp;Token | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console).
-TwiML&nbsp;App&nbsp;SID | The TwiML application with a voice URL configured to access your server running this app - create one [in the console here](https://www.twilio.com/console/voice/twiml/apps). Also, you will need to configure the Voice "REQUEST URL" on the TwiML app once you've got your server up and running.
-Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) - you can [get one here](https://www.twilio.com/console/phone-numbers/incoming)
+`TWILIO_ACCOUNT_SID` | Your primary Twilio account identifier - find this [in the console here](https://www.twilio.com/console).
+`TWILIO_TWIML_APP_SID` | The TwiML application with a voice URL configured to access your server running this app - create one [in the console here](https://www.twilio.com/console/voice/twiml/apps). Also, you will need to configure the Voice "REQUEST URL" on the TwiML app once you've got your server up and running.
+`TWILIO_CALLER_ID` | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) - you can [get one here](https://www.twilio.com/console/phone-numbers/incoming)
+`API_KEY` / `API_SECRET` | Your REST API Key information needed to create an [Access Token](https://www.twilio.com/docs/iam/access-tokens) - create [one here](https://www.twilio.com/console/project/api-keys).
 
 ## Setting Up The Node.js Application
 
@@ -26,7 +26,7 @@ Twilio&nbsp;Phone&nbsp;# | A Twilio phone number in [E.164 format](https://en.wi
    cp .env.example .env
    ```
 
-1. Edit `.env` with the four configuration parameters we gathered from above.
+1. Edit `.env` with the five configuration parameters we gathered from above.
 
 1. Next, we need to install our dependencies from npm:
 
@@ -80,5 +80,6 @@ npm test
 ## Meta
 
 * No warranty expressed or implied. Software is as is. Diggity.
+* The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
 * Lovingly crafted by Twilio Developer Education.
