@@ -24,7 +24,7 @@
   "author": "Twilio Developer Education",
   "license": "MIT",
   "engines": {
-    "node": "^12"
+    "node": ">=10.x"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
