@@ -8,9 +8,9 @@ describe('#tokenGenerator', () => {
     const token = tokenGenerator();
     const decoded = jwt.decode(token.token, {complete: true});
 
-    expect(decoded.payload.scope).toContain('incoming');
-    expect(decoded.payload.scope).toContain('outgoing');
-    expect(decoded.payload.scope).toContain(`clientName=${token.identity}`);
+    expect(decoded.payload).toHaveProperty('jti');
+    expect(decoded.payload).toHaveProperty('grants');
+    expect(decoded.payload.grants.identity).toBe(token.identity);
   });
 });
 

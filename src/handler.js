@@ -1,26 +1,26 @@
-const ClientCapability = require('twilio').jwt.ClientCapability;
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
+const AccessToken = require('twilio').jwt.AccessToken;
+const VoiceGrant = AccessToken.VoiceGrant;
 
 const nameGenerator = require('../name_generator');
 const config = require('../config');
 
 exports.tokenGenerator = function tokenGenerator() {
   const identity = nameGenerator();
-  const capability = new ClientCapability({
-    accountSid: config.accountSid,
-    authToken: config.authToken,
-  });
 
-  capability.addScope(new ClientCapability.IncomingClientScope(identity));
-  capability.addScope(new ClientCapability.OutgoingClientScope({
-    applicationSid: config.twimlAppSid,
-    clientName: identity,
-  }));
+  const accessToken = new AccessToken(config.accountSid,
+      config.apiKey, config.apiSecret);
+  accessToken.identity = identity;
+  const grant = new VoiceGrant({
+    outgoingApplicationSid: config.twimlAppSid,
+    incomingAllow: true,
+  });
+  accessToken.addGrant(grant);
 
   // Include identity and token in a JSON response
   return {
     identity: identity,
-    token: capability.toJwt(),
+    token: accessToken.toJwt(),
   };
 };
 
