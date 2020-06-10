@@ -90,6 +90,16 @@ Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
 
 That's it!
 
+### Docker
+
+If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
+
+1. Make sure you have the project cloned.
+2. Setup the `.env` file as outlined in the [Local Development](#local-development) steps.
+3. Run `docker-compose up`.
+4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like [ngrok](https://ngrok.com/) and configure the remaining parts of your application.
+
+
 ### Tests
 
 To execute tests, run the following command in the project directory:
