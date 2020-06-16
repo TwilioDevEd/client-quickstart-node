@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "./node_modules/.bin/eslint '**/*.js' && ./node_modules/.bin/jest"
+    "eslint": "./node_modules/.bin/eslint .",
+    "test": "./node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
