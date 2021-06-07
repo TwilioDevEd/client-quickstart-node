@@ -2,16 +2,18 @@
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
 
-# Twilio Client Quickstart for Node.js
+<!-- TODO: Update repo here -->
+# Twilio Voice JavaScript SDK Quickstart for Node.js
 ![](https://github.com/TwilioDevEd/client-quickstart-node/workflows/Node.js/badge.svg)
 
 > This template is part of Twilio CodeExchange. If you encounter any issues with this code, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues).
 
 ## About
 
-This application should give you a ready-made starting point for writing your own voice apps with Twilio Client. This application is built in Node.
+This application should give you a ready-made starting point for writing your own voice apps with Twilio Voice JavaScript SDK 2.0 (Formerly known as Twilio Client). This application is built in Node.
 
 Implementations in other languages:
+<!-- TODO: Update repo names for updated quickstarts-->
 
 | .NET | Java | Python | PHP | Ruby |
 | :--- | :--- | :----- | :-- | :--- |
@@ -21,7 +23,7 @@ Implementations in other languages:
 
 ### Requirements
 
-- [Nodejs](https://nodejs.org/) v10 or v12
+- [Nodejs](https://nodejs.org/) version **14.0** or aobve.
 
 ### Twilio Account Settings
 
@@ -36,6 +38,7 @@ Before we begin, we need to collect all the config values we need to run the app
 
 ### Local development
 
+<!-- TODO: update repo name -->
 1. First clone this repository and cd into it:
    ```bash
    git clone https://github.com/TwilioDevEd/client-quickstart-node.git
@@ -79,7 +82,7 @@ Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
    ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
 
    You should now be ready to rock! Make some phone calls.
-   Open it on another device and call yourself. Note that Twilio Client requires
+   Open it on another device and call yourself. Note that Twilio JavaScript SDK 2.0 requires
    WebRTC enabled browsers, so Edge and Internet Explorer will not work for
    testing. We'd recommend Google Chrome or Mozilla Firefox instead.
 
