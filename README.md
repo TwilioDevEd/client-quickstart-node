@@ -78,20 +78,27 @@ Before we begin, we need to collect all the config values we need to run the app
 
 9. [Configure your TwiML app](https://www.twilio.com/console/voice/twiml/apps)'s
 Voice "REQUEST URL" to be your ngrok URL plus `/voice`. For example:
+   **Note:** You **must** use the https URL, otherwise some browsers will block
+   microphone access.
 
    ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrl.original.png)
 
-   You should now be ready to rock! Make some phone calls.
-   Open it on another device and call yourself. Note that Twilio JavaScript SDK 2.0 requires
-   WebRTC enabled browsers, so Edge and Internet Explorer will not work for
-   testing. We'd recommend Google Chrome or Mozilla Firefox instead.
+You should now be ready to rock! Make some phone calls or receiving incoming calls in the application.
+Note that Twilio Client requires WebRTC enabled browsers, so Edge and Internet Explorer will not work for testing.
+We recommend Google Chrome or Mozilla Firefox instead.
 
-   > **Note:** You **must** use the https URL, otherwise some browsers will block
-   microphone access.
+   ![screenshot of application homepage](./screenshot_homepage.png)
 
-   ![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
+When the server starts, you will be assigned a random client name, which will appear in the top left corner of the homepage. This client name is used as the identity field when generating an access token for the client, and is also used to route incoming calls to the correct client device.
 
-That's it!
+You can make outbound calls by entering a phone number or a client name. If you would like to test browser-to-browser calls, open one browser page to `localhost:5000` and then stop and restart the server, which will generate a new client identity. Open a new browser to `localhost:5000`, and you should see the new client name. You can make calls between these two clients by entering one client's name in the box for making an outbound call.
+
+![screenshot of application homepage](./screenshot_two_calls.png)
+
+You can also receiving an incoming call to your browser by calling the Twilio number you specified as your `TWILIO_CALLER_ID` in your `.env` file.
+
+If you see "Unknown Audio Output Device 1" in the "Ringtone" or "Speaker" devices lists, click the button below the boxes (Seeing "Unknown" Devices?) to have your browser identify your input and output devices.
+![screenshot of unknown devices](./screenshot_unknown_devices.png)
 
 ### Docker
 

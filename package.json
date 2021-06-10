@@ -1,8 +1,8 @@
 {
-  "name": "client-quickstart-node",
+  "name": "twilio-voice-javascript-sdk-quickstart-node",
   "private": true,
   "version": "1.0.0",
-  "description": "Quick Start application template for Twilio Client on Node.js",
+  "description": "Quick Start application template for Twilio Voice JavaScript SDK on Node.js",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
