@@ -30,6 +30,7 @@
       log('Got a token.');
       token = data.token;
       console.log('Token: ' + token);
+      identity = data.identity;
       setClientNameUI(data.identity);  
     })
     .then(() => {
@@ -69,6 +70,7 @@
     log("Initializing device")
     device = new Twilio.Device(token, {
       debug: true, 
+      answerOnBridge: true,
       // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
       // providing better audio quality in restrained network conditions. Opus will be default in 2.0.
       codecPreferences: ["opus", "pcmu"]
@@ -246,8 +248,14 @@
   }
 
   function hangupIncomingCall(call) {
-    call.disconnectAll();
+    call.disconnect();
     log("Hung up incoming call.");
+    resetIncomingCallUI();
+  }
+
+  function handleDisconnectedIncomingCall(call) {
+    call.disconnect();
+    log("Incoming call ended.");
     resetIncomingCallUI();
   }
 

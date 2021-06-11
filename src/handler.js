@@ -5,9 +5,10 @@ const VoiceGrant = AccessToken.VoiceGrant;
 const nameGenerator = require('../name_generator');
 const config = require('../config');
 
-exports.tokenGenerator = function tokenGenerator() {
-  const identity = nameGenerator();
+var identity = nameGenerator();
 
+exports.tokenGenerator = function tokenGenerator() {
+  
   const accessToken = new AccessToken(config.accountSid,
       config.apiKey, config.apiSecret);
   accessToken.identity = identity;
@@ -24,22 +25,27 @@ exports.tokenGenerator = function tokenGenerator() {
   };
 };
 
-exports.voiceResponse = function voiceResponse(toNumber) {
+exports.voiceResponse = function voiceResponse(requestBody) {
+  
+  const toNumberOrClientName = requestBody.To;
+  
   // Create a TwiML voice response
-  const twiml = new VoiceResponse();
+  let twiml = new VoiceResponse();
+    
+  if (requestBody.To == config.callerId) {
+    dial = twiml.dial();
+    dial.client(identity);
+  } else if (requestBody.To) {
+    dial = twiml.dial({callerId: config.callerId});
+  
 
-  // if (toNumber) {
-  //   // Wrap the phone number or client name in the appropriate TwiML verb
-  //   // if is a valid phone number
-  //   const attr = isAValidPhoneNumber(toNumber) ? 'number' : 'client';
-
-  //   const dial = twiml.dial({
-  //     callerId: config.callerId,
-  //   });
-  //   dial[attr]({}, toNumber);
-  // } else {
-    twiml.say('Thanks for calling!');
-  // }
+    console.log('inside incoming number if block')
+    // Check if the 'To' parameter is a phone number or the name of a client
+    const attr = isAValidPhoneNumber(toNumberOrClientName) ? 'number' : 'client';
+    dial[attr]({}, toNumberOrClientName);
+  } else {
+    twiml.say("Thanks for calling!");
+  }
 
   return twiml.toString();
 };
