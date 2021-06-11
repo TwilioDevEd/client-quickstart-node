@@ -35,7 +35,8 @@ div#controls {
       text-align: center;
     }
       div#controls div#info div#output-selection {
-        display: none;
+        /* display: none; */
+        /* visibility: hidden; */
       }
 
       div#controls div#info a {
@@ -56,7 +57,8 @@ div#controls {
       }
 
       div#controls div#call-controls div#volume-indicators {
-        display: none;
+        /* display: none; */
+        /* visibility: hidden; */
         padding: 10px;
         margin-top: 20px;
         width: 500px;
@@ -103,7 +105,8 @@ div#controls {
     }
 
   div#controls div#call-controls {
-    display: none;
+    /* display: none; */
+    /* visibility: hidden; */
   }
 
     div#controls div#call-controls input {
@@ -123,7 +126,8 @@ div#controls {
     }
 
       div#controls div#call-controls button#button-hangup {
-        display: none;
+        /* display: none; */
+        /* visibility: hidden; */
       }
 
   div#controls div#log {
@@ -146,3 +150,10 @@ div#controls {
       text-indent: -1.25em;
       width: 90%;
     }
+
+
+    .hide {
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+   }

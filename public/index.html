@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Twilio Client Quickstart</title>
+  <title>Twilio Voice JavaScript SDK Quickstart</title>
   <link rel="stylesheet" href="site.css">
 </head>
 <body>
   <div id="controls">
     <div id="info">
-      <p class="instructions">Twilio Client</p>
+      <h1 class="instructions">Twilio Voice JavaScript SDK Quickstart</h1>
       <button id="startup-button">Start up the Client</button>
       <div id="client-name"></div>
-      <div id="output-selection">
+      <div id="output-selection" class="hide">
         <label>Ringtone Devices</label>
         <select id="ringtone-devices" multiple></select>
         <label>Speaker Devices</label>
         <select id="speaker-devices" multiple></select><br/>
-        <a id="get-devices">Seeing "Unknown" devices?</a>
+        <button id="get-devices">Seeing "Unknown" devices?</button>
       </div>
     </div>
-    <div id="call-controls">
-      <p class="instructions">Make a Call:</p>
-      <input id="phone-number" type="text" placeholder="Enter a phone # or client name" />
-      <button id="button-call">Call</button>
-      <button id="button-hangup">Hangup</button>
-      <div id="incoming-call" hidden>
+    <div id="call-controls" class="hide">
+      <form>
+        <h2 class="instructions">Make a Call:</h2>
+        <label for="phone-number">Enter a phone number or client name (i.e. QuietGracieMinneapolis)</label>
+        <input id="phone-number" type="text" placeholder="+15552221234" />
+        <button id="button-call" type="submit">Call</button>
+      </form>
+      <button id="button-hangup" class="hide">Hang Up</button>
+      <div id="incoming-call" class="hide">
         <p class="instructions">Incoming Call from <span id="incoming-number"></span></p>
         <button id="button-accept-incoming">Accept</button>
         <button id="button-reject-incoming">Reject</button>
         <button id="button-hangup-incoming">Hangup</button>
       </div>
-      <div id="volume-indicators">
+      <div id="volume-indicators" class="hide">
         <label>Mic Volume</label>
         <div id="input-volume"></div><br/><br/>
         <label>Speaker Volume</label>
