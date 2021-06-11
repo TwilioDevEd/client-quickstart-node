@@ -1,112 +1,105 @@
 ﻿$(function () {
-  var speakerDevices = document.getElementById('speaker-devices');
-  var ringtoneDevices = document.getElementById('ringtone-devices');
-  var outputVolumeBar = document.getElementById('output-volume');
-  var inputVolumeBar = document.getElementById('input-volume');
-  var volumeIndicators = document.getElementById('volume-indicators');
+  const speakerDevices = document.getElementById('speaker-devices');
+  const ringtoneDevices = document.getElementById('ringtone-devices');
+  const outputVolumeBar = document.getElementById('output-volume');
+  const inputVolumeBar = document.getElementById('input-volume');
+  const volumeIndicators = document.getElementById('volume-indicators');
+  const callButton = document.getElementById('button-call');
+  const hangupButton = document.getElementById('button-hangup');
+  const callControlsDiv = document.getElementById('call-controls');
+  const audioSelectionDiv = document.getElementById('output-selection');
+  const getDevicesButton = document.getElementById('get-devices');
+  const logDiv = document.getElementById("log");
+  const incomingCallDiv = document.getElementById("incoming-call");
+
+  const incomingCallHangupButton = document.getElementById("button-hangup-incoming");
+  const incomingCallAcceptButton = document.getElementById("button-accept-incoming");
+  const incomingCallRejectButton = document.getElementById("button-reject-incoming");
+
+
+  
+
 
   var device;
+  let token;
+
 
   log('Requesting Capability Token...');
   $.getJSON('/token')
     .then(function (data) {
       log('Got a token.');
-      console.log('Token: ' + data.token);
-
-      // Setup Twilio.Device
-      device = new Twilio.Device(data.token, {
-        // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
-        // providing better audio quality in restrained network conditions. Opus will be default in 2.0.
-        codecPreferences: ["opus", "pcmu"],
-        // Use fake DTMF tones client-side. Real tones are still sent to the other end of the call,
-        // but the client-side DTMF tones are fake. This prevents the local mic capturing the DTMF tone
-        // a second time and sending the tone twice. This will be default in 2.0.
-        fakeLocalDTMF: true,
-        // Use `enableRingingState` to enable the device to emit the `ringing`
-        // state. The TwiML backend also needs to have the attribute
-        // `answerOnBridge` also set to true in the `Dial` verb. This option
-        // changes the behavior of the SDK to consider a call `ringing` starting
-        // from the connection to the TwiML backend to when the recipient of
-        // the `Dial` verb answers.
-        enableRingingState: true
-      });
-
-      device.on("ready", function(device) {
-        log("Twilio.Device Ready!");
-        document.getElementById("call-controls").style.display = "block";
-      });
-
-      device.on("error", function(error) {
-        log("Twilio.Device Error: " + error.message);
-      });
-
-      device.on("connect", function(conn) {
-        log("Successfully established call!");
-        document.getElementById("button-call").style.display = "none";
-        document.getElementById("button-hangup").style.display = "inline";
-        volumeIndicators.style.display = "block";
-        bindVolumeIndicators(conn);
-      });
-
-      device.on("disconnect", function(conn) {
-        log("Call ended.");
-        document.getElementById("button-call").style.display = "inline";
-        document.getElementById("button-hangup").style.display = "none";
-        volumeIndicators.style.display = "none";
-      });
-
-      device.on("incoming", function(conn) {
-        log("Incoming connection from " + conn.parameters.From);
-        var archEnemyPhoneNumber = "+12093373517";
-
-        if (conn.parameters.From === archEnemyPhoneNumber) {
-          conn.reject();
-          log("It's your nemesis. Rejected call.");
-        } else {
-          // accept the incoming connection and start two-way audio
-          conn.accept();
-        }
-      });
-
-      setClientNameUI(data.identity);
-
-      device.audio.on("deviceChange", updateAllDevices.bind(device));
-
-      // Show audio selection UI if it is supported by the browser.
-      if (device.audio.isOutputSelectionSupported) {
-        document.getElementById("output-selection").style.display = "block";
-      }
+      token = data.token;
+      console.log('Token: ' + token);
+      setClientNameUI(data.identity);  
     })
-    .catch(function (err) {
-      console.log(err);
-      log("Could not get a token from server!");
+    .then(() => {
+      document.getElementById('startup-button').addEventListener('click', intitializeDevice)
+    })
+  .catch(function (err) {
+    console.log(err);
+    log("An error occurred. See your browser console for more information.");
+  });
+
+
+  function addDeviceListeners(device) {
+
+    device.on("registered", function() {
+      log("Twilio.Device Ready to make and receive calls!");
+      callControlsDiv.style.display = "block";
     });
+    
+    device.on("error", function(error) {
+      log("Twilio.Device Error: " + error.message);
+    });
+    
+    device.on("incoming", (call) => {
+      setupIncomingCallUI(call)
+
+    });
+        
+    device.audio.on("deviceChange", updateAllDevices.bind(device));
+    
+    // Show audio selection UI if it is supported by the browser.
+    if (device.audio.isOutputSelectionSupported) {
+      audioSelectionDiv.style.display = "block";
+    }
+  }
+  
+  function intitializeDevice() {
+    log("Initializing device")
+    device = new Twilio.Device(token, {
+      debug: true, 
+      // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
+      // providing better audio quality in restrained network conditions. Opus will be default in 2.0.
+      codecPreferences: ["opus", "pcmu"]
+      // Use fake DTMF tones client-side. Real tones are still sent to the other end of the call,
+      // but the client-side DTMF tones are fake. This prevents the local mic capturing the DTMF tone
+      // a second time and sending the tone twice.
+    })
+
+    addDeviceListeners(device);
+    device.register();
+  }
 
   // Bind button to make call
-  document.getElementById("button-call").onclick = function() {
-    // get the phone number to connect the call to
+  callButton.onclick = function() {
+
+    // get the phone number to call from the DOM
     var params = {
       To: document.getElementById("phone-number").value
     };
 
     console.log("Calling " + params.To + "...");
     if (device) {
-      var outgoingConnection = device.connect(params);
-      outgoingConnection.on("ringing", function() {
-        log("Ringing...");
-      });
+      log('Attempting to connect')
+      console.log(params)
+      device.connect({ params }).then((call) => handleEstablishedCall(call))
+    } else {
+      log("Device not initialized")
     }
   };
 
-  // Bind button to hangup call
-  document.getElementById("button-hangup").onclick = function() {
-    log("Hanging up...");
-    if (device) {
-      device.disconnectAll();
-    }
-  };
-
-  document.getElementById("get-devices").onclick = function() {
+  getDevicesButton.onclick = function() {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(updateAllDevices.bind(device));
@@ -167,6 +160,38 @@
     updateDevices(ringtoneDevices, device.audio.ringtoneDevices.get());
   }
 
+  function handleEstablishedCall (call) {
+
+    call.addListener("accept", handleAcceptedCall);
+    
+    call.addListener("disconnect", handleDisconnectedCall);
+
+    hangupButton.onclick = (call) => {
+      log('Hanging up ...');
+      if (device) {
+        device.disconnectAll();
+      }
+    }
+  }
+
+  // "accepted" means the call has finished connecting and the state is now "open"
+  function handleAcceptedCall(call) {
+    log("Call in progress ...")
+    callButton.style.display = "none";
+    hangupButton.style.display = "inline";
+    volumeIndicators.style.display = "block";
+    bindVolumeIndicators(call);
+  }
+
+//TODO: refactor these show/hide things with a css class disabling them
+
+  function handleDisconnectedCall() {
+    log("Call disconnected.");
+    callButton.style.display = "inline";
+    hangupButton.style.display = "none";
+    volumeIndicators.style.display = "none";
+  }
+
   // Update the available ringtone and speaker devices
   function updateDevices(selectEl, selectedDevices) {
     selectEl.innerHTML = "";
@@ -191,7 +216,6 @@
 
   // Activity log
   function log(message) {
-    var logDiv = document.getElementById("log");
     logDiv.innerHTML += "<p>&gt;&nbsp;" + message + "</p>";
     logDiv.scrollTop = logDiv.scrollHeight;
   }
@@ -200,5 +224,55 @@
   function setClientNameUI(clientName) {
     var div = document.getElementById("client-name");
     div.innerHTML = "Your client name: <strong>" + clientName + "</strong>";
+  }
+
+  function acceptIncomingCall(call) {
+    call.accept();
+    log('Accepted incoming call.');
+    incomingCallHangupButton.style.display = "inline";
+    incomingCallAcceptButton.style.display = "none";
+    incomingCallRejectButton.style.display = "none";
+  }
+
+  function resetIncomingCallUI () {
+    document.getElementById("incoming-number").innerHTML = "";
+    document.getElementById("incoming-call").style.display = "none";
+  }
+
+  function rejectIncomingCall(call) {
+    call.reject();
+    log("Rejected incoming call");
+    resetIncomingCallUI();
+  }
+
+  function hangupIncomingCall(call) {
+    call.disconnectAll();
+    log("Hung up incoming call.");
+    resetIncomingCallUI();
+  }
+
+  // Update UI when an incoming call comes in
+  function setupIncomingCallUI(call) {
+    log(`Incoming call from ${call.parameters.From}`)
+
+    incomingCallDiv.style.display = "block";
+    document.getElementById("incoming-number").innerHTML = call.parameters.From;
+    incomingCallAcceptButton.style.display = "inline";
+    incomingCallRejectButton.style.display = "inline";
+    incomingCallHangupButton.style.display = "none";
+
+    incomingCallAcceptButton.onclick = () => {
+      acceptIncomingCall(call);
+    }
+
+    incomingCallRejectButton.onclick = () => {
+      rejectIncomingCall(call);
+    }
+
+    incomingCallHangupButton.onclick = () => {
+      hangupIncomingCall(call);
+    }
+
+    call.addListener('cancel', handleDisconnectedIncomingCall)
   }
 });
