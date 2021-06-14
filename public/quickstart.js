@@ -254,27 +254,18 @@
   }
   
   function updateOutputDevice() {
-    var selectedDevices = [].slice
-      .call(speakerDevices.children)
-      .filter(function(node) {
-        return node.selected;
-      })
-      .map(function(node) {
-        return node.getAttribute("data-id");
-      });
+
+    const selectedDevices = Array.from(speakerDevices.children)
+    .filter((node) => node.selected)
+    .map((node) => node.getAttribute("data-id"));
 
     device.audio.speakerDevices.set(selectedDevices);
   }
 
   function updateRingtoneDevice() {
-    var selectedDevices = [].slice
-      .call(ringtoneDevices.children)
-      .filter(function(node) {
-        return node.selected;
-      })
-      .map(function(node) {
-        return node.getAttribute("data-id");
-      });
+    const selectedDevices = Array.from(ringtoneDevices.children)
+      .filter((node) => node.selected)
+      .map((node) => node.getAttribute("data-id"));
   
     device.audio.ringtoneDevices.set(selectedDevices);
   }
