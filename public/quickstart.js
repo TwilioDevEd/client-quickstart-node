@@ -62,6 +62,7 @@
   // SETUP STEP 3: 
   // Instantiate a new Twilio.Device
   function intitializeDevice() {
+    logDiv.classList.remove("hide");
     log("Initializing device")
     device = new Twilio.Device(token, {
       debug: true, 
@@ -69,9 +70,6 @@
       // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
       // providing better audio quality in restrained network conditions. Opus will be default in 2.0.
       codecPreferences: ["opus", "pcmu"]
-      // Use fake DTMF tones client-side. Real tones are still sent to the other end of the call,
-      // but the client-side DTMF tones are fake. This prevents the local mic capturing the DTMF tone
-      // a second time and sending the tone twice.
     })
 
     addDeviceListeners(device);
@@ -125,7 +123,7 @@
 
 
     } else {
-      log("Device not initialized")
+      log("Unable to make call.")
     }
   }
 
@@ -191,6 +189,7 @@
     log('Accepted incoming call.');
     incomingCallAcceptButton.classList.add("hide");
     incomingCallRejectButton.classList.add("hide");
+    incomingCallHangupButton.classList.remove("hide");
   }
   
   // REJECT INCOMING CALL
@@ -205,18 +204,17 @@
 
   // HANG UP INCOMING CALL
 
-  function hangupIncomingCall(call) {
-    call.disconnect();
+  function hangupIncomingCall() {
+    hangup();
 
-    log("Hung up incoming call.");
     resetIncomingCallUI();
   }
 
   // HANDLE CANCELLED INCOMING CALL  
 
   function handleDisconnectedIncomingCall(call) {
-    call.disconnect();
-
+    device.disconnectAll();
+    console.log('handledisconnected : ', call)
     log("Incoming call ended.");
     resetIncomingCallUI();
   }
@@ -226,13 +224,13 @@
 
   // Activity log 
   function log(message) {
-    logDiv.innerHTML += "<p>&gt;&nbsp;" + message + "</p>";
+    logDiv.innerHTML += `<p class="log-entry">&gt;&nbsp; ${message} </p>`;
     logDiv.scrollTop = logDiv.scrollHeight;
   }
 
   function setClientNameUI(clientName) {
     var div = document.getElementById("client-name");
-    div.innerHTML = "Your client name: <strong>" + clientName + "</strong>";
+    div.innerHTML = `Your client name: <strong>${clientName}</strong>`;
   }
 
   function resetIncomingCallUI () {

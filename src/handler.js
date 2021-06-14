@@ -5,9 +5,8 @@ const VoiceGrant = AccessToken.VoiceGrant;
 const nameGenerator = require('../name_generator');
 const config = require('../config');
 
-var identity = nameGenerator();
-
 exports.tokenGenerator = function tokenGenerator() {
+  var identity = nameGenerator();
   
   const accessToken = new AccessToken(config.accountSid,
       config.apiKey, config.apiSecret);
@@ -32,14 +31,14 @@ exports.voiceResponse = function voiceResponse(requestBody) {
   // Create a TwiML voice response
   let twiml = new VoiceResponse();
     
+  // check if the POST call to the /voice endpoint is coming from your client
   if (requestBody.To == config.callerId) {
     dial = twiml.dial();
     dial.client(identity);
   } else if (requestBody.To) {
+    // this is for handling incoming calls
     dial = twiml.dial({callerId: config.callerId});
-  
 
-    console.log('inside incoming number if block')
     // Check if the 'To' parameter is a phone number or the name of a client
     const attr = isAValidPhoneNumber(toNumberOrClientName) ? 'number' : 'client';
     dial[attr]({}, toNumberOrClientName);

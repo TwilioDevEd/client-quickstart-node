@@ -3,157 +3,123 @@
 body,
 p {
   padding: 0;
-  margin: 0;
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  background: #272726;
+h1 {
+  text-align: center;
+}
+
+h2 {
+  margin-top: 0;
+  border-bottom: 1px solid black;
+}
+
+button {
+  margin-bottom: 10px;
 }
 
 label {
   text-align: left;
-  font-family: Helvetica, sans-serif;
   font-size: 1.25em;
   color: #777776;
   display: block;
 }
 
-div#controls {
+header {
+  text-align: center;
+}
+
+
+main {
   padding: 3em;
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-  div#controls div {
-    float: left;
-  }
+.left-column,
+.center-column,
+.right-column {
+  width: 30%;
+  min-width: 16em;
+  margin: 0 1.5em;
+  text-align: center;
+}
 
-    div#controls div#call-controls,
-    div#controls div#info {
-      width: 16em;
-      margin: 0 1.5em;
-      text-align: center;
-    }
-      div#controls div#info div#output-selection {
-        /* display: none; */
-        /* visibility: hidden; */
-      }
+/* Left Column */
+#client-name {
+  text-align: left;
+  margin-bottom: 1em;
+  font-family: "Helvetica Light", Helvetica, sans-serif;
+  font-size: 1.25em;
+  color: #777776;
+}
 
-      div#controls div#info a {
-        font-size: 1.1em;
-        color: khaki;
-        text-decoration: underline;
-        cursor: pointer;
-      }
+select {
+  width: 300px;
+  height: 60px;
+  margin-bottom: 10px;
+}
 
-      div#controls div#info select {
-        width: 300px;
-        height: 60px;
-        margin-bottom: 2em;
-      }
-
-      div#controls div#info label {
-        width: 300px;
-      }
-
-      div#controls div#call-controls div#volume-indicators {
-        /* display: none; */
-        /* visibility: hidden; */
-        padding: 10px;
-        margin-top: 20px;
-        width: 500px;
-        text-align: left;
-      }
-
-        div#controls div#call-controls div#volume-indicators > div {
-          display: block;
-          height: 20px;
-          width: 0;
-        }
-
-  div#controls p.instructions {
-    text-align: left;
-    margin-bottom: 1em;
+/* Center Column */
+input {
     font-family: Helvetica-LightOblique, Helvetica, sans-serif;
     font-style: oblique;
-    font-size: 1.25em;
-    color: #777776;
-  }
-
-  div#controls div#info #client-name {
-    text-align: left;
-    margin-bottom: 1em;
-    font-family: "Helvetica Light", Helvetica, sans-serif;
-    font-size: 1.25em;
-    color: #777776;
-  }
-
-  div#controls button {
-    width: 15em;
+    font-size: 1em;
+    width: 100%;
     height: 2.5em;
-    margin-top: 1.75em;
-    border-radius: 1em;
-    font-family: "Helvetica Light", Helvetica, sans-serif;
-    font-size: .8em;
-    font-weight: lighter;
-    outline: 0;
-  }
+    padding: 0;
+    display: block;
+    margin: 10px 0;
+}
 
-    div#controls button:active {
-      position: relative;
-      top: 1px;
-    }
+div#volume-indicators {
+  padding: 10px;
+  margin-top: 20px;
+  width: 500px;
+  text-align: left;
+}
 
-  div#controls div#call-controls {
-    /* display: none; */
-    /* visibility: hidden; */
-  }
+div#volume-indicators > div {
+  display: block;
+  height: 20px;
+  width: 0;
+}
 
-    div#controls div#call-controls input {
-      font-family: Helvetica-LightOblique, Helvetica, sans-serif;
-      font-style: oblique;
-      font-size: 1em;
-      width: 100%;
-      height: 2.5em;
-      padding: .5em;
-      display: block;
-    }
+/* Right Column */
+.right-column {
+  padding: 0 1.5em;
+}
 
-    div#controls div#call-controls button {
-      color: #fff;
-      background: 0 0;
-      border: 1px solid #686865;
-    }
+#log {
+  text-align: left;
+  border: 1px solid #686865;
+  padding: 10px;
+  height: 9.5em;
+  overflow-y: scroll;
+}
 
-      div#controls div#call-controls button#button-hangup {
-        /* display: none; */
-        /* visibility: hidden; */
-      }
+.log-entry {
+  color: #686865;
+  font-family: 'Share Tech Mono', 'Courier New', Courier, fixed-width;
+  font-size: 1.25em;
+  line-height: 1.25em;
+  margin-left: 1em;
+  text-indent: -1.25em;
+  width: 90%;
+}
 
-  div#controls div#log {
-    border: 1px solid #686865;
-    width: 35%;
-    height: 9.5em;
-    margin-top: 2.75em;
-    text-align: left;
-    padding: 1.5em;
-    float: right;
-    overflow-y: scroll;
-  }
+/* Other Styles */
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
 
-    div#controls div#log p {
-      color: #686865;
-      font-family: 'Share Tech Mono', 'Courier New', Courier, fixed-width;
-      font-size: 1.25em;
-      line-height: 1.25em;
-      margin-left: 1em;
-      text-indent: -1.25em;
-      width: 90%;
-    }
-
-
-    .hide {
-      position: absolute !important;
-      top: -9999px !important;
-      left: -9999px !important;
-   }
+button:disabled {
+  cursor: not-allowed;
+}
