@@ -41,20 +41,22 @@
 
 
   // SETUP STEP 2: Request an Access Token
-  function startupClient() {
+  async function startupClient() {
+    
     log('Requesting Access Token...');
-    $.getJSON('/token')
-      .then(function (data) {
-        log('Got a token.');
-        token = data.token;
-        identity = data.identity;
-        setClientNameUI(data.identity);
-        intitializeDevice();  
-      })
-    .catch(function (err) {
+    
+    try {
+      const data = await $.getJSON('/token')
+      log('Got a token.');
+      token = data.token;
+      setClientNameUI(data.identity);
+      intitializeDevice();  
+    } 
+    catch (err) {
       console.log(err);
       log("An error occurred. See your browser console for more information.");
-    });
+    }
+
   }
 
   // SETUP STEP 3: 
@@ -241,10 +243,9 @@
   
   // AUDIO CONTROLS
 
-  function getAudioDevices() {
-    navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then(updateAllAudioDevices.bind(device));
+  async function getAudioDevices() {
+    await navigator.mediaDevices.getUserMedia({ audio: true })
+    updateAllAudioDevices.bind(device)
   }
 
   function updateAllAudioDevices() {
