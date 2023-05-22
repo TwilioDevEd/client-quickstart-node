@@ -1,21 +1,27 @@
+:warning:
+
+This is a deprecated project.
+
+Please go to the [Twilio Voice JavaScript SDK quickstart for Node](https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-node)
+
+:warning:
+
+
+
+
+
+
+
 <a href="https://www.twilio.com">
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
 
 # Twilio Client Quickstart for Node.js
-![](https://github.com/TwilioDevEd/client-quickstart-node/workflows/Node.js/badge.svg)
-
-> This template is part of Twilio CodeExchange. If you encounter any issues with this code, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues).
 
 ## About
 
 This application should give you a ready-made starting point for writing your own voice apps with Twilio Client. This application is built in Node.
 
-Implementations in other languages:
-
-| .NET | Java | Python | PHP | Ruby |
-| :--- | :--- | :----- | :-- | :--- |
-| [Done](https://github.com/TwilioDevEd/client-quickstart-csharp) | [Done](https://github.com/TwilioDevEd/client-quickstart-java)  | [Done](https://github.com/TwilioDevEd/client-quickstart-python)  | [Done](https://github.com/TwilioDevEd/client-quickstart-php) | [Done](https://github.com/TwilioDevEd/client-quickstart-ruby)  |
 
 ## Set Up
 
